@@ -8,19 +8,10 @@ import { Badge } from "@/components/ui/badge";
 import { Code2, Sparkles, Users, Zap } from "lucide-react";
 import heroImage from "@/assets/replit-hero.jpg";
 
-const Index = () => {
-  const [currentView, setCurrentView] = useState<"home" | "editor">("home");
+import { useNavigate } from "react-router-dom";
 
-  if (currentView === "editor") {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5">
-        <Header />
-        <main className="p-6">
-          <CodeEditor />
-        </main>
-      </div>
-    );
-  }
+const Index = () => {
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/10">
@@ -41,7 +32,7 @@ const Index = () => {
         {/* Quick Access */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           <Card className="bg-gradient-card backdrop-blur-md border-border/50 p-6 cursor-pointer hover:shadow-glow transition-all duration-300" 
-                onClick={() => setCurrentView("editor")}>
+                onClick={() => navigate('/editor')}>
             <div className="flex items-center gap-3 mb-3">
               <Code2 className="w-6 h-6 text-primary" />
               <h3 className="font-semibold">Code Editor</h3>
@@ -53,7 +44,8 @@ const Index = () => {
             </Badge>
           </Card>
 
-          <Card className="bg-gradient-card backdrop-blur-md border-border/50 p-6 cursor-pointer hover:shadow-glow transition-all duration-300">
+          <Card className="bg-gradient-card backdrop-blur-md border-border/50 p-6 cursor-pointer hover:shadow-glow transition-all duration-300"
+                onClick={() => navigate('/projects')}>
             <div className="flex items-center gap-3 mb-3">
               <Users className="w-6 h-6 text-accent" />
               <h3 className="font-semibold">Collaborate</h3>

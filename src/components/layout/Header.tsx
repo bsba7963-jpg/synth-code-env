@@ -2,9 +2,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Plus, Search, Bell, Settings, User, LogOut, Sparkles } from "lucide-react";
+import { Plus, Search, Bell, Settings, User, LogOut, Sparkles, FolderOpen, Code2 } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const Header = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path: string) => location.pathname === path;
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
       <div className="flex h-16 items-center justify-between px-6">
@@ -21,8 +27,29 @@ export const Header = () => {
           </div>
 
           <nav className="hidden md:flex items-center gap-4">
-            <Button variant="ghost" size="sm">Create</Button>
-            <Button variant="ghost" size="sm">Explore</Button>
+            <Button 
+              variant={isActive('/') ? 'secondary' : 'ghost'} 
+              size="sm"
+              onClick={() => navigate('/')}
+            >
+              Home
+            </Button>
+            <Button 
+              variant={isActive('/projects') ? 'secondary' : 'ghost'} 
+              size="sm"
+              onClick={() => navigate('/projects')}
+            >
+              <FolderOpen className="w-4 h-4 mr-1" />
+              Projects
+            </Button>
+            <Button 
+              variant={isActive('/editor') ? 'secondary' : 'ghost'} 
+              size="sm"
+              onClick={() => navigate('/editor')}
+            >
+              <Code2 className="w-4 h-4 mr-1" />
+              Editor
+            </Button>
             <Button variant="ghost" size="sm">Templates</Button>
             <Button variant="ghost" size="sm">Docs</Button>
           </nav>
@@ -42,7 +69,11 @@ export const Header = () => {
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
-          <Button size="sm" className="bg-primary hover:bg-primary/90">
+          <Button 
+            size="sm" 
+            className="bg-primary hover:bg-primary/90"
+            onClick={() => navigate('/editor')}
+          >
             <Plus className="w-4 h-4 mr-2" />
             Create
           </Button>
